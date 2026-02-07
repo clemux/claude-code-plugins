@@ -1,0 +1,12 @@
+repos:
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.2.0
+    hooks:
+      - id: commitizen
+  - repo: local
+    hooks:
+      - id: shellcheck
+        name: shellcheck
+        language: system
+        entry: shellcheck
+        files: '\.sh$'

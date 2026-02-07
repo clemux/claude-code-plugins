@@ -1,0 +1,18 @@
+[tools]
+"uv:commitizen" = "latest"
+
+[tasks.lint]
+description = "Run shellcheck on all hook scripts"
+run = "shellcheck safer-git/hooks/guard-git.sh subagent-metrics/hooks/log-subagent-usage.sh"
+
+[tasks.validate]
+description = "Validate marketplace structure"
+run = "claude plugin validate ."
+
+[tasks."bump:safer-git"]
+description = "Bump safer-git version"
+run = "cz --config safer-git/.cz.toml bump --yes"
+
+[tasks."bump:subagent-metrics"]
+description = "Bump subagent-metrics version"
+run = "cz --config subagent-metrics/.cz.toml bump --yes"

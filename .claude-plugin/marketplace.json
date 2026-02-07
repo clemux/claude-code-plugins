@@ -1,0 +1,31 @@
+{
+  "name": "cc-plugins",
+  "owner": {
+    "name": "Clément Schreiner"
+  },
+  "metadata": {
+    "description": "Safety and observability plugins for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "safer-git",
+      "source": "./safer-git",
+      "description": "Blocks dangerous git commands (force-push, amend, reset --hard, etc.) for all agents",
+      "version": "1.1.0",
+      "license": "MIT",
+      "keywords": ["git", "safety", "hooks"],
+      "category": "safety",
+      "tags": ["PreToolUse", "guard"]
+    },
+    {
+      "name": "subagent-metrics",
+      "source": "./subagent-metrics",
+      "description": "Logs token usage for every subagent (Task tool) call to ~/.claude/subagent-metrics.jsonl",
+      "version": "1.0.0",
+      "license": "MIT",
+      "keywords": ["metrics", "tokens", "observability"],
+      "category": "observability",
+      "tags": ["PostToolUse", "logging"]
+    }
+  ]
+}
