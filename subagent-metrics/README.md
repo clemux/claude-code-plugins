@@ -16,13 +16,13 @@ Each subagent call appends a JSON line to `~/.claude/subagent-metrics.jsonl`:
 {
   "ts": "2026-02-07T12:00:00Z",
   "session": "abc123",
+  "cwd": "/home/user/my-project",
   "model": "haiku",
   "subagent_type": "general-purpose",
   "skill": "commit",
   "description": "execute git add and commit",
   "total_tokens": 1523,
-  "duration_ms": 3200,
-  "loaded_skills": ["commit", "haiku", "sonnet"]
+  "duration_ms": 3200
 }
 ```
 
@@ -38,8 +38,8 @@ The hook parses the `[...]` prefix as the triggering skill. Untagged calls get `
 
 ## Supported analyses
 
-- **Cost attribution**: tokens grouped by triggering skill
-- **Session profiling**: correlate loaded skill sets with token usage
+- **Cost attribution**: tokens grouped by triggering skill or project
+- **Session profiling**: per-session and per-project token usage
 - **Skill optimization**: per-call breakdown within a skill
 
 ### Example queries
@@ -57,9 +57,9 @@ jq -s 'group_by(.model) | map({model: .[0].model, avg: (map(.total_tokens // 0) 
 The plugin registers a PostToolUse hook on the Task tool. After any subagent completes:
 
 1. Extracts `model`, `subagent_type`, `description` from tool input
-2. Parses token usage from tool result text (`total_tokens: N`, `duration_ms: N`)
-3. Extracts triggering skill from description tag (`[skill-name]` prefix)
-4. Lists currently loaded skills by globbing `~/.claude/skills/*/SKILL.md`
+2. Extracts `cwd` (project path) from the hook event
+3. Parses token usage from tool response text (`total_tokens: N`, `duration_ms: N`)
+4. Extracts triggering skill from description tag (`[skill-name]` prefix)
 5. Atomically appends a JSON log line using `flock`
 
 ## Dependencies
