@@ -25,18 +25,9 @@ fi
 # Extract project path from hook event
 cwd="$(echo "$input" | jq -r '.cwd // ""')"
 
-# Extract token usage from tool_response (text format)
-tool_result="$(echo "$input" | jq -r '.tool_response // ""')"
-
-total_tokens="null"
-if [[ "$tool_result" =~ total_tokens:\ *([0-9]+) ]]; then
-  total_tokens="${BASH_REMATCH[1]}"
-fi
-
-duration_ms="null"
-if [[ "$tool_result" =~ duration_ms:\ *([0-9]+) ]]; then
-  duration_ms="${BASH_REMATCH[1]}"
-fi
+# Extract token usage from tool_response (JSON object)
+total_tokens="$(echo "$input" | jq '.tool_response.totalTokens // null')"
+duration_ms="$(echo "$input" | jq '.tool_response.totalDurationMs // null')"
 
 # Build JSON log line
 ts="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
