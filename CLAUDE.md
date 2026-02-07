@@ -98,6 +98,17 @@ cd <plugin-name>
 cz bump
 ```
 
+### Commit type guidelines
+
+Plugin components are **functionality**, not documentation. Use the commit type that matches the intent of the change:
+
+- `feat:` — new capability (new skill, new hook, new agent, new script)
+- `fix:` — improving or correcting existing behavior (fixing a SKILL.md workflow, hook logic, agent prompt)
+- `refactor:` — restructuring without behavior change (reorganizing a SKILL.md, renaming agents)
+- `docs:` — changes to README.md, CLAUDE.md, or other non-functional documentation only
+
+In particular, changes to `SKILL.md`, `agents/*.md`, `hooks/*.sh`, and `scripts/*.py` are almost never `docs:` — they change how the plugin behaves.
+
 ## Testing
 
 Each plugin is tested by loading it into a Claude Code session:
