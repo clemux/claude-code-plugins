@@ -29,10 +29,7 @@ Analyze staged/unstaged changes, create conventional commits with smart splittin
 Run these commands yourself (NOT via subagent):
 
 ```bash
-git status
-git diff
-git diff --staged
-git log --oneline -5
+bash ${CLAUDE_PLUGIN_ROOT}/scripts/gather-info.sh
 ```
 
 ### File scope
