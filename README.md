@@ -59,6 +59,67 @@ Logs token usage for every subagent (Task tool) call, enabling cost attribution 
 
 [Read more →](subagent-metrics/README.md)
 
+### commit
+
+Smart conventional commits with automatic change analysis and splitting via the `/commit` command.
+
+**Features:**
+- Analyzes staged and unstaged changes, groups them into logical commits
+- Intent-based splitting heuristics with conventional commit messages
+- Interactive confirmation before executing (or `auto` mode to skip)
+- Pre-commit hook failure handling (fixes issues, creates new commits)
+- Optional push after committing
+
+**Usage:** `/commit`, `/commit push`, `/commit auto`
+
+**How it works:** Uses a heavy-skill/thin-subagent architecture — Opus does all analysis, splitting, and planning in the skill, while a dedicated Haiku subagent executes git commands. The custom `commit` subagent type enables proper attribution in subagent-metrics logs.
+
+[Read more →](commit/README.md)
+
+### test-runner
+
+Runs pytest with coverage and baseline tracking via the `/tests` command.
+
+**Features:**
+- Coverage table with deltas from previous runs
+- Coverage trend (last 5 runs)
+- Test summary with new failures, fixed tests, and pre-existing failures
+- Structured markdown report
+- Baseline history stored in `.tests-baseline.json`
+
+**Usage:** `/tests`, `/tests tests/test_auth.py`, `/tests -k "test_login"`
+
+**How it works:** The `/tests` skill dispatches a dedicated `test-runner` Haiku subagent that runs pytest via `mise exec` with coverage and JSON reporting plugins, then compares results against baseline history.
+
+**Dependencies:** `pytest`, `pytest-cov`, `pytest-json-report`, `mise`
+
+[Read more →](test-runner/README.md)
+
+## Marketplace CLI
+
+The `scripts/marketplace.py` script provides a CLI for managing the plugin catalog. It runs as a standalone [uv script](https://docs.astral.sh/uv/guides/scripts/) (no install needed).
+
+```bash
+# List all plugins
+./scripts/marketplace.py list
+
+# Add a new plugin to the catalog
+./scripts/marketplace.py add <plugin-name> --category <category>
+
+# Update a plugin's version in the catalog
+./scripts/marketplace.py update-version <plugin-name>
+
+# Sync all marketplace entries with their plugin.json files
+./scripts/marketplace.py sync
+./scripts/marketplace.py sync --dry-run
+```
+
+**Commands:**
+- **list** — Display all plugins in a table (name, version, category, description)
+- **add** — Register a new plugin directory in the marketplace catalog
+- **update-version** — Bump a plugin's version (reads from `plugin.json` by default)
+- **sync** — Reconcile marketplace entries with each plugin's `plugin.json` (version, description, license)
+
 ## Development
 
 Each plugin is an independent git repository in its own subdirectory. See [CLAUDE.md](CLAUDE.md) for development guidelines and code quality standards.
