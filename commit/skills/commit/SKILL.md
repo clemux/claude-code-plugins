@@ -29,7 +29,7 @@ Analyze staged/unstaged changes, create conventional commits with smart splittin
 Run these commands yourself (NOT via subagent):
 
 ```bash
-bash ${CLAUDE_PLUGIN_ROOT}/scripts/gather-info.sh
+${CLAUDE_PLUGIN_ROOT}/scripts/gather-info.sh
 ```
 
 ### File scope

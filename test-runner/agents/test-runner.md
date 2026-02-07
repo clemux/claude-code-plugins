@@ -22,7 +22,7 @@ If pytest fails to **start** entirely (e.g., import error, `unrecognized argumen
 **Step 2 — Run comparison script:**
 
 ```bash
-mise exec -- python ${CLAUDE_PLUGIN_ROOT}/scripts/compare_results.py
+mise exec -- ${CLAUDE_PLUGIN_ROOT}/scripts/compare_results.py
 ```
 
 This script reads the JSON output files, compares against the baseline history, updates the history, cleans up temporary files, and prints a structured markdown report to stdout.

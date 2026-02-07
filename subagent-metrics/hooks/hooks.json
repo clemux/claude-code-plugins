@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/log-subagent-usage.sh"
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/log-subagent-usage.sh"
           }
         ]
       }
