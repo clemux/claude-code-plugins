@@ -94,7 +94,7 @@ For each commit, dispatch a Haiku subagent:
 
 ```
 Task tool parameters:
-  subagent_type: "commit"
+  subagent_type: "commit:commit"
   model: "haiku"
   max_turns: 3
   description: "[commit] execute git add and commit"
@@ -125,7 +125,7 @@ Only push if the user explicitly asked (e.g., `/commit push` or mentioned pushin
 
 ```
 Task tool parameters:
-  subagent_type: "commit"
+  subagent_type: "commit:commit"
   model: "haiku"
   max_turns: 3
   description: "[commit] push to remote"
