@@ -4,12 +4,17 @@
 "pipx:pylint" = "latest"
 
 [tasks.lint]
-description = "Run shellcheck on shell scripts and ruff/pylint on Python scripts"
+description = "Run shellcheck, ruff check, ruff format check, and pylint"
 run = [
   "shellcheck safer-git/hooks/guard-git.sh subagent-metrics/hooks/log-subagent-usage.sh",
   "ruff check .",
-  "pylint --fail-under=8.0 subagent-metrics/metrics.py test-runner/scripts/compare_results.py"
+  "ruff format --check .",
+  "pylint --fail-under=8.0 $(find . -name '*.py' -not -path './.git/*')"
 ]
+
+[tasks.format]
+description = "Auto-format Python files with ruff"
+run = "ruff format ."
 
 [tasks.validate]
 description = "Validate marketplace structure"
