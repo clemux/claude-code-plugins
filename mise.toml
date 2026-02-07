@@ -1,5 +1,5 @@
 [tools]
-"uv:commitizen" = "latest"
+"pipx:commitizen" = "latest"
 
 [tasks.lint]
 description = "Run shellcheck on all hook scripts"
