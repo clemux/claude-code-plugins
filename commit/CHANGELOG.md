@@ -1,3 +1,9 @@
+## commit-v0.1.2 (2026-02-07)
+
+### Fix
+
+- **commit**: add bullet point guidance for commit message bodies
+
 ## commit-v0.1.1 (2026-02-07)
 
 ### Feat
