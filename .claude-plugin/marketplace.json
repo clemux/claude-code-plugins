@@ -60,7 +60,7 @@
       "name": "commit",
       "source": "./commit",
       "description": "Smart conventional commits with automatic change analysis and splitting",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "license": "MIT",
       "keywords": [
         "git",
