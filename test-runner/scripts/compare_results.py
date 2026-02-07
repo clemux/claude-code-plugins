@@ -26,7 +26,7 @@ MAX_HISTORY = 10
 
 def load_json(path: str) -> dict | None:
     try:
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
         return None
@@ -77,7 +77,9 @@ def extract_tests(data: dict) -> dict:
     }
 
 
-def format_delta(current: float | int, previous: float | int | None, is_percent: bool = False) -> str:
+def format_delta(
+    current: float | int, previous: float | int | None, is_percent: bool = False
+) -> str:
     if previous is None:
         return "—"
     delta = current - previous
@@ -89,22 +91,29 @@ def format_delta(current: float | int, previous: float | int | None, is_percent:
     return f"{sign}{delta}"
 
 
-def build_report(coverage: dict, tests: dict, previous: dict | None) -> list[str]:
+def build_report(coverage: dict, previous: dict | None) -> list[str]:
     lines = []
     lines.append("## Test Report")
     lines.append("")
 
     prev_cov = previous.get("coverage") if previous else None
-    prev_tests = previous.get("tests") if previous else None
 
     # Coverage table
     lines.append("### Coverage")
     lines.append("| Metric | Current | Delta |")
     lines.append("|---|---|---|")
-    lines.append(f"| Coverage | {coverage['percent_covered']}% | {format_delta(coverage['percent_covered'], prev_cov.get('percent_covered') if prev_cov else None, is_percent=True)} |")
-    lines.append(f"| Covered lines | {coverage['covered_lines']} | {format_delta(coverage['covered_lines'], prev_cov.get('covered_lines') if prev_cov else None)} |")
-    lines.append(f"| Missing lines | {coverage['missing_lines']} | {format_delta(coverage['missing_lines'], prev_cov.get('missing_lines') if prev_cov else None)} |")
-    lines.append(f"| Statements | {coverage['num_statements']} | {format_delta(coverage['num_statements'], prev_cov.get('num_statements') if prev_cov else None)} |")
+    lines.append(
+        f"| Coverage | {coverage['percent_covered']}% | {format_delta(coverage['percent_covered'], prev_cov.get('percent_covered') if prev_cov else None, is_percent=True)} |"
+    )
+    lines.append(
+        f"| Covered lines | {coverage['covered_lines']} | {format_delta(coverage['covered_lines'], prev_cov.get('covered_lines') if prev_cov else None)} |"
+    )
+    lines.append(
+        f"| Missing lines | {coverage['missing_lines']} | {format_delta(coverage['missing_lines'], prev_cov.get('missing_lines') if prev_cov else None)} |"
+    )
+    lines.append(
+        f"| Statements | {coverage['num_statements']} | {format_delta(coverage['num_statements'], prev_cov.get('num_statements') if prev_cov else None)} |"
+    )
     lines.append("")
 
     return lines
@@ -139,7 +148,11 @@ def build_test_summary(tests: dict) -> list[str]:
 def build_failure_sections(tests: dict, previous: dict | None) -> list[str]:
     lines = []
     current_failures = set(tests["failed_tests"])
-    prev_failures = set(previous["tests"]["failed_tests"]) if previous and "tests" in previous else set()
+    prev_failures = (
+        set(previous["tests"]["failed_tests"])
+        if previous and "tests" in previous
+        else set()
+    )
     details = tests.get("failure_details", {})
 
     new_failures = current_failures - prev_failures
@@ -203,14 +216,16 @@ def check_gitignore() -> list[str]:
     lines = []
     gitignore = Path(".gitignore")
     if gitignore.exists():
-        content = gitignore.read_text()
+        content = gitignore.read_text(encoding="utf-8")
         if BASELINE_FILE not in content:
             lines.append("### Warnings")
             lines.append(f"- `{BASELINE_FILE}` is not in `.gitignore`")
             lines.append("")
     else:
         lines.append("### Warnings")
-        lines.append(f"- No `.gitignore` found — consider adding `{BASELINE_FILE}` to it")
+        lines.append(
+            f"- No `.gitignore` found — consider adding `{BASELINE_FILE}` to it"
+        )
         lines.append("")
     return lines
 
@@ -219,9 +234,13 @@ def main():
     # Check for required input files
     missing = []
     if not os.path.exists(COVERAGE_FILE):
-        missing.append(f"`{COVERAGE_FILE}` — install pytest-cov: `pip install pytest-cov`")
+        missing.append(
+            f"`{COVERAGE_FILE}` — install pytest-cov: `pip install pytest-cov`"
+        )
     if not os.path.exists(PYTEST_REPORT_FILE):
-        missing.append(f"`{PYTEST_REPORT_FILE}` — install pytest-json-report: `pip install pytest-json-report`")
+        missing.append(
+            f"`{PYTEST_REPORT_FILE}` — install pytest-json-report: `pip install pytest-json-report`"
+        )
 
     if missing:
         print("## Test Report")
@@ -231,7 +250,9 @@ def main():
         for m in missing:
             print(f"- {m}")
         print()
-        print("Make sure the required pytest plugins are installed and the test run completed.")
+        print(
+            "Make sure the required pytest plugins are installed and the test run completed."
+        )
         sys.exit(1)
 
     # Load data
@@ -269,7 +290,7 @@ def main():
 
     # Build report
     report = []
-    report.extend(build_report(coverage, tests, previous))
+    report.extend(build_report(coverage, previous))
     report.extend(build_trend([current_run] + history))
     report.extend(build_test_summary(tests))
     report.extend(build_failure_sections(tests, previous))
@@ -283,7 +304,7 @@ def main():
     history.insert(0, current_run)
     baseline["runs"] = history[:MAX_HISTORY]
 
-    with open(BASELINE_FILE, "w") as f:
+    with open(BASELINE_FILE, "w", encoding="utf-8") as f:
         json.dump(baseline, f, indent=2)
         f.write("\n")
 

@@ -8,7 +8,7 @@
 """CLI explorer for subagent-metrics JSONL logs."""
 
 import json
-from datetime import datetime
+
 from pathlib import Path
 from typing import Annotated, Optional
 
@@ -21,13 +21,12 @@ DEFAULT_METRICS_PATH = Path.home() / ".claude" / "subagent-metrics.jsonl"
 app = typer.Typer(help="Explore subagent-metrics logs.")
 console = Console()
 
-metrics_file: Path = DEFAULT_METRICS_PATH
+_state = {"metrics_file": DEFAULT_METRICS_PATH}
 
 
 def set_file(path: Optional[Path] = None) -> None:
-    global metrics_file
     if path is not None:
-        metrics_file = path
+        _state["metrics_file"] = path
 
 
 @app.callback()
@@ -41,6 +40,7 @@ def main(
 
 
 def load_entries() -> list[dict]:
+    metrics_file = _state["metrics_file"]
     if not metrics_file.exists():
         console.print(f"[dim]No metrics file found at {metrics_file}[/dim]")
         raise typer.Exit(0)
@@ -78,22 +78,24 @@ def fmt_duration(ms: int | None) -> str:
 def log(
     last: Annotated[int, typer.Option("--last", "-n", help="Number of entries.")] = 20,
     model: Annotated[Optional[str], typer.Option(help="Filter by model.")] = None,
-    type: Annotated[
+    subagent_type: Annotated[
         Optional[str], typer.Option("--type", help="Filter by subagent type.")
     ] = None,
     skill: Annotated[Optional[str], typer.Option(help="Filter by skill.")] = None,
     session: Annotated[
         Optional[str], typer.Option(help="Filter by session (prefix match).")
     ] = None,
-    cwd: Annotated[Optional[str], typer.Option(help="Filter by project path (prefix match).")] = None,
+    cwd: Annotated[
+        Optional[str], typer.Option(help="Filter by project path (prefix match).")
+    ] = None,
 ) -> None:
     """Show recent log entries as a table."""
     entries = load_entries()
 
     if model:
         entries = [e for e in entries if e.get("model") == model]
-    if type:
-        entries = [e for e in entries if e.get("subagent_type") == type]
+    if subagent_type:
+        entries = [e for e in entries if e.get("subagent_type") == subagent_type]
     if skill:
         entries = [e for e in entries if e.get("skill") == skill]
     if session:
@@ -146,7 +148,9 @@ def summary(
     """Show aggregate stats grouped by a dimension."""
     field_map = {"model": "model", "type": "subagent_type", "skill": "skill"}
     if by not in field_map:
-        console.print(f"[red]Invalid --by value: {by}. Choose model, type, or skill.[/red]")
+        console.print(
+            f"[red]Invalid --by value: {by}. Choose model, type, or skill.[/red]"
+        )
         raise typer.Exit(1)
 
     field = field_map[by]
@@ -175,7 +179,9 @@ def summary(
         items = groups[key]
         count = len(items)
         tokens = [e["total_tokens"] for e in items if e.get("total_tokens") is not None]
-        durations = [e["duration_ms"] for e in items if e.get("duration_ms") is not None]
+        durations = [
+            e["duration_ms"] for e in items if e.get("duration_ms") is not None
+        ]
         total_tok = sum(tokens) if tokens else None
         avg_tok = round(total_tok / len(tokens)) if tokens else None
         total_dur = sum(durations) if durations else None
