@@ -13,9 +13,16 @@
       "description": "Blocks dangerous git commands (force-push, amend, reset --hard, etc.) for all agents",
       "version": "1.1.0",
       "license": "MIT",
-      "keywords": ["git", "safety", "hooks"],
+      "keywords": [
+        "git",
+        "safety",
+        "hooks"
+      ],
       "category": "safety",
-      "tags": ["PreToolUse", "guard"]
+      "tags": [
+        "PreToolUse",
+        "guard"
+      ]
     },
     {
       "name": "subagent-metrics",
@@ -23,9 +30,31 @@
       "description": "Logs token usage for every subagent (Task tool) call to ~/.claude/subagent-metrics.jsonl",
       "version": "1.0.0",
       "license": "MIT",
-      "keywords": ["metrics", "tokens", "observability"],
+      "keywords": [
+        "metrics",
+        "tokens",
+        "observability"
+      ],
       "category": "observability",
-      "tags": ["PostToolUse", "logging"]
+      "tags": [
+        "PostToolUse",
+        "logging"
+      ]
+    },
+    {
+      "name": "test-runner",
+      "description": "Run tests with coverage and baseline tracking (pytest, with JS/TS support planned)",
+      "version": "0.1.0",
+      "source": "./test-runner",
+      "category": "testing",
+      "keywords": [
+        "testing",
+        "pytest"
+      ],
+      "tags": [
+        "skill"
+      ],
+      "license": "MIT"
     }
   ]
 }

@@ -27,3 +27,11 @@ run = "cz --config safer-git/.cz.toml bump --yes"
 [tasks."bump:subagent-metrics"]
 description = "Bump subagent-metrics version"
 run = "cz --config subagent-metrics/.cz.toml bump --yes"
+
+[tasks."marketplace:list"]
+description = "List marketplace plugins"
+run = "uv run scripts/marketplace.py list"
+
+[tasks."marketplace:sync"]
+description = "Sync marketplace.json from plugin.json files"
+run = "uv run scripts/marketplace.py sync"
