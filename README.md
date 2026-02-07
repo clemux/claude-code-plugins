@@ -1,5 +1,14 @@
 # Claude Code Plugins Marketplace
 
+## Disclaimer
+
+These plugins are just me playing around with Claude Code's plugin system, and have been iteratively developed by prompting Claude Code to improve them each time the behavior didn't match what I had in mind.
+
+There are probably much better-designed plugins that do the same things with more features; if you know of any, please open an issue and I will happily mention them in this README as better alternatives:
+
+- In particular, the **safer-git** plugin should probably be more generic and not be limited to git commands. Hopefully Anthropic will eventually improve the permission system, but in the meantime, I hope there are better plugins than that one.
+- The **test-runner** plugin also seems like something interesting that has probably been done better by others -- I'd love to know of such alternatives!
+
 A collection of community plugins for [Claude Code](https://claude.ai/code) that enhance safety, monitoring, and developer experience.
 
 ## Installation
