@@ -10,6 +10,7 @@ This is a marketplace of Claude Code plugins managed as a monorepo. The `marketp
 
 - **safer-git** — PreToolUse hook that blocks dangerous git commands (force-push, reset --hard, amend, etc.) for all agents including subagents. Intercepts Bash tool calls, splits compound commands, and regex-matches each segment against a blocklist.
 - **subagent-metrics** — PostToolUse hook that logs token usage for every Task tool call to `~/.claude/subagent-metrics.jsonl`. Parses skill tags from description brackets (`[skill-name]`), extracts token counts from tool results, and appends atomically with `flock`.
+- **commit** — Skill + custom subagent for smart conventional commits. Opus analyzes changes, applies intent-based splitting heuristics, and proposes a commit plan; a thin Haiku subagent executes git commands. Invoked via `/commit`.
 
 ## Plugin anatomy
 

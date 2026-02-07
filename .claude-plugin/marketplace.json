@@ -55,6 +55,23 @@
         "skill"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "commit",
+      "source": "./commit",
+      "description": "Smart conventional commits with automatic change analysis and splitting",
+      "version": "0.1.0",
+      "license": "MIT",
+      "keywords": [
+        "git",
+        "commit",
+        "conventional-commits"
+      ],
+      "category": "workflow",
+      "tags": [
+        "skill",
+        "subagent"
+      ]
     }
   ]
 }
