@@ -24,7 +24,7 @@ A collection of community plugins for [Claude Code](https://claude.ai/code) that
 
 ### safer-git
 
-Blocks dangerous git commands for all agents (main + subagents), preventing accidental data loss and history rewrites.
+Blocks dangerous git commands for all agents (main + subagents), preventing accidental data loss and history rewrites. It's called "safer" rather than "safe" because it reduces risk but cannot guarantee complete protection — an LLM agent can find indirect execution paths (scripts, eval, non-Bash runtimes) that bypass command-level hooks. See [known bypass vectors and limitations](safer-git/README.md#agent-bypass-vectors-and-mitigations).
 
 **Protects against:**
 - Force pushes (`git push --force`, `--force-with-lease`)
