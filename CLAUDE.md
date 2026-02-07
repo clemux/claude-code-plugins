@@ -56,6 +56,16 @@ shellcheck safer-git/hooks/guard-git.sh
 shellcheck subagent-metrics/hooks/log-subagent-usage.sh
 ```
 
+Run ruff (fast linter + formatter check):
+```bash
+ruff check .
+```
+
+Run pylint:
+```bash
+pylint subagent-metrics/metrics.py test-runner/scripts/compare_results.py
+```
+
 ### Committing changes
 
 Use commitizen for standardized commit messages:
@@ -92,5 +102,7 @@ All hook scripts require `jq` for JSON parsing. The safer-git plugin also requir
 Development dependencies (managed by mise/prek):
 - `jq` — JSON parsing in hook scripts
 - `shellcheck` — Shell script linting
+- `ruff` — Python linting (runs in pre-commit and `mise run lint`)
+- `pylint` — Python linting (runs only via `mise run lint`, too slow for pre-commit)
 - `commitizen` — Conventional commit enforcement
-- `pre-commit` — Git hook management
+- `prek` — Git hook management

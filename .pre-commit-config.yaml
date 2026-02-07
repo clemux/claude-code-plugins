@@ -3,6 +3,10 @@ repos:
     rev: v4.2.0
     hooks:
       - id: commitizen
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.0
+    hooks:
+      - id: ruff
   - repo: local
     hooks:
       - id: shellcheck

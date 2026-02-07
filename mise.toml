@@ -1,9 +1,15 @@
 [tools]
 "pipx:commitizen" = "latest"
+"pipx:ruff" = "latest"
+"pipx:pylint" = "latest"
 
 [tasks.lint]
-description = "Run shellcheck on all hook scripts"
-run = "shellcheck safer-git/hooks/guard-git.sh subagent-metrics/hooks/log-subagent-usage.sh"
+description = "Run shellcheck on shell scripts and ruff/pylint on Python scripts"
+run = [
+  "shellcheck safer-git/hooks/guard-git.sh subagent-metrics/hooks/log-subagent-usage.sh",
+  "ruff check .",
+  "pylint --fail-under=8.0 subagent-metrics/metrics.py test-runner/scripts/compare_results.py"
+]
 
 [tasks.validate]
 description = "Validate marketplace structure"
