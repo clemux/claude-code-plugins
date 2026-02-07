@@ -69,14 +69,20 @@ Always use **conventional commits**:
 
 Include a scope when obvious: `feat(auth):`, `fix(api):`, etc.
 
-Keep messages concise (1-2 sentences), focused on **why** not **what**.
+Keep messages concise, focused on **why** not **what**.
+
+For the commit body:
+- Use `- ` bullet points when the commit includes multiple distinct changes or reasons
+- A single-sentence body is fine when there's only one thing to say
+- Blank line between the subject line and body (standard git convention)
 
 Use a HEREDOC for the commit message:
 ```bash
 git commit -m "$(cat <<'EOF'
 feat(auth): add OAuth2 login flow
 
-Implements Google OAuth2 provider with token refresh.
+- Implement Google OAuth2 provider with token refresh
+- Add callback endpoint and session persistence
 EOF
 )"
 ```
