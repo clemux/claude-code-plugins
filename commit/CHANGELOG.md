@@ -1,3 +1,14 @@
+## commit-v0.1.3 (2026-02-08)
+
+### Fix
+
+- **commit**: replace set -x with section headers and context-aware git log
+
+### Refactor
+
+- remove explicit interpreter prefixes from script invocations
+- **commit**: extract git info-gathering into standalone script
+
 ## commit-v0.1.2 (2026-02-07)
 
 ### Fix
