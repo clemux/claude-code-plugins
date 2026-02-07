@@ -4,8 +4,17 @@ A Claude Code plugin that runs pytest with coverage and baseline tracking via th
 
 ## Installation
 
+### From the marketplace
+
+```
+/plugin marketplace add clemux/claude-code-plugins
+/plugin install test-runner@clemux-claude-code-plugins
+```
+
+### From a local clone
+
 ```bash
-claude --plugin-dir ~/dev/cc-plugins/test-runner
+claude --plugin-dir ~/dev/claude-code-plugins/test-runner
 ```
 
 ## Usage

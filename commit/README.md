@@ -4,8 +4,17 @@ A Claude Code plugin for smart conventional commits with automatic change analys
 
 ## Installation
 
+### From the marketplace
+
+```
+/plugin marketplace add clemux/claude-code-plugins
+/plugin install commit@clemux-claude-code-plugins
+```
+
+### From a local clone
+
 ```bash
-claude --plugin-dir ~/dev/cc-plugins/commit
+claude --plugin-dir ~/dev/claude-code-plugins/commit
 ```
 
 ## Usage

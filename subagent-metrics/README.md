@@ -4,8 +4,17 @@ A Claude Code plugin that logs token usage for every subagent (Task tool) call, 
 
 ## Installation
 
+### From the marketplace
+
+```
+/plugin marketplace add clemux/claude-code-plugins
+/plugin install subagent-metrics@clemux-claude-code-plugins
+```
+
+### From a local clone
+
 ```bash
-claude --plugin-dir ~/dev/cc-plugins/subagent-metrics
+claude --plugin-dir ~/dev/claude-code-plugins/subagent-metrics
 ```
 
 ## Log format

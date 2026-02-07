@@ -4,8 +4,17 @@ A Claude Code plugin that blocks dangerous git commands for all agents (main + s
 
 ## Installation
 
+### From the marketplace
+
+```
+/plugin marketplace add clemux/claude-code-plugins
+/plugin install safer-git@clemux-claude-code-plugins
+```
+
+### From a local clone
+
 ```bash
-claude --plugin-dir ~/dev/cc-plugins/safer-git
+claude --plugin-dir ~/dev/claude-code-plugins/safer-git
 ```
 
 ## What it blocks
