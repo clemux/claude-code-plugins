@@ -1,0 +1,6 @@
+{
+  "name": "worktree",
+  "description": "Manage git worktrees using git gtr (create, copy files, navigate)",
+  "version": "0.1.0",
+  "license": "MIT"
+}
