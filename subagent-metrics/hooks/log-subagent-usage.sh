@@ -11,7 +11,7 @@ fi
 input="$(cat)"
 
 # Extract fields from tool_input
-model="$(echo "$input" | jq -r '.tool_input.model // "default"')"
+model="$(echo "$input" | jq -r '.tool_input.model // "not-specified"')"
 subagent_type="$(echo "$input" | jq -r '.tool_input.subagent_type // "unknown"')"
 description="$(echo "$input" | jq -r '.tool_input.description // ""')"
 session_id="$(echo "$input" | jq -r '.session_id // ""')"
