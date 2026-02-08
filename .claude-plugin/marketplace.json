@@ -44,7 +44,7 @@
     {
       "name": "test-runner",
       "description": "Run tests with coverage and baseline tracking (pytest, with JS/TS support planned)",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "source": "./test-runner",
       "category": "testing",
       "keywords": [
