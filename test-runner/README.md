@@ -27,6 +27,62 @@ claude --plugin-dir ~/dev/claude-code-plugins/test-runner
 
 Any arguments after `/tests` are passed directly to pytest.
 
+## Example Output
+
+```
+❯ /tests
+
+● test-runner:test-runner(Run tests with coverage)
+  ⎿  Done (2 tool uses · 12.0k tokens · 47s)
+
+● Test Report
+
+  Coverage
+  ┌───────────────┬─────────┬───────┐
+  │    Metric     │ Current │ Delta │
+  ├───────────────┼─────────┼───────┤
+  │ Coverage      │ 94.0%   │ 0     │
+  ├───────────────┼─────────┼───────┤
+  │ Covered lines │ 3749    │ 0     │
+  ├───────────────┼─────────┼───────┤
+  │ Missing lines │ 240     │ 0     │
+  ├───────────────┼─────────┼───────┤
+  │ Statements    │ 3989    │ 0     │
+  └───────────────┴─────────┴───────┘
+  Coverage Trend (last 5 runs)
+
+  94.0% → 94.0% → 94.0% → 94.0% → 94.0%
+
+  Test Summary
+  ┌─────────┬───────┐
+  │ Status  │ Count │
+  ├─────────┼───────┤
+  │ Passed  │ 213   │
+  ├─────────┼───────┤
+  │ Failed  │ 1     │
+  ├─────────┼───────┤
+  │ Error   │ 0     │
+  ├─────────┼───────┤
+  │ Skipped │ 2     │
+  └─────────┴───────┘
+  New Failures
+
+  tests/unit/entrypoints/test_middleware.py::TestValidateRequestId::test_accepts_max_length
+
+  self = <tests.unit.entrypoints.test_middleware.TestValidateRequestId object at 0x708c99505450>
+
+      def test_accepts_max_length(self):
+          """128-char string should be returned unchanged."""
+          valid_id = "a" * 128
+  >       assert False
+  E       assert False
+
+  tests/unit/entrypoints/test_middleware.py:23: AssertionError
+
+  There's 1 new failure — looks like test_accepts_max_length has a placeholder assert False instead of
+  the actual assertion. Want me to look at and fix that test?
+```
+
 ## What it does
 
 1. Runs `pytest --cov --cov-report=json --json-report` with any extra arguments
@@ -58,10 +114,10 @@ The custom `test-runner` subagent type enables proper attribution in `subagent-m
 
 ## Files
 
-| File | Purpose |
-|------|---------|
-| `agents/test-runner.md` | Custom haiku subagent with Bash + Read tools |
-| `skills/tests/SKILL.md` | `/tests` slash command that dispatches the subagent |
+| File                         | Purpose                                                 |
+|------------------------------|---------------------------------------------------------|
+| `agents/test-runner.md`      | Custom haiku subagent with Bash + Read tools            |
+| `skills/tests/SKILL.md`      | `/tests` slash command that dispatches the subagent     |
 | `scripts/compare_results.py` | Reads JSON outputs, compares to baseline, prints report |
 
 ## Baseline history
