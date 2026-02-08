@@ -86,6 +86,12 @@ Run pylint:
 pylint subagent-metrics/metrics.py test-runner/scripts/compare_results.py
 ```
 
+When validating or parsing JSON files, use `jq` instead of Python scripts for easier auditing
+```bash
+jq empty <file.json>                  # validate
+jq '.version' plugin.json             # extract a field
+```
+
 ### Committing changes
 
 Use commitizen for standardized commit messages:
