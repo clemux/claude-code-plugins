@@ -12,6 +12,7 @@ This is a marketplace of Claude Code plugins managed as a monorepo. The `.claude
 - **subagent-metrics** — PostToolUse hook that logs token usage for every Task tool call to `~/.claude/subagent-metrics.jsonl`. Parses skill tags from description brackets (`[skill-name]`), extracts token counts from tool results, and appends atomically with `flock`. Includes a `metrics.py` CLI (uv script) for querying logs, aggregating stats, and listing sessions.
 - **commit** — Skill + custom subagent for smart conventional commits. Opus analyzes changes, applies intent-based splitting heuristics, and proposes a commit plan; a thin Haiku subagent executes git commands. Invoked via `/commit`.
 - **test-runner** — Skill + custom subagent for running pytest with coverage and baseline tracking. The `/tests` skill dispatches a dedicated Haiku subagent that runs pytest with coverage and JSON reporting, then compares results against baseline history.
+- **worktree** — Skill for managing git worktrees using git gtr. Creates worktrees, copies files, and guides the user to navigate or start AI sessions in them. Invoked via `/worktree`.
 
 ## Plugin anatomy
 
