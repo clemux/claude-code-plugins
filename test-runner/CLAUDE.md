@@ -7,7 +7,7 @@ Skill + custom subagent that runs pytest with coverage, compares against a basel
 
 ### Structure
 - `.claude-plugin/plugin.json` — Plugin manifest
-- `agents/test-runner.md` — Custom haiku subagent (Bash + Read)
+- `agents/test-runner.md` — Custom haiku subagent (Bash only)
 - `skills/tests/SKILL.md` — `/tests` skill dispatches to the subagent
 - `scripts/compare_results.py` — Baseline comparison and report generation
 
