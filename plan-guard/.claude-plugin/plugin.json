@@ -1,0 +1,6 @@
+{
+  "name": "plan-guard",
+  "description": "Asks for confirmation when entering plan mode with a non-Opus model",
+  "version": "0.1.0",
+  "license": "MIT"
+}
