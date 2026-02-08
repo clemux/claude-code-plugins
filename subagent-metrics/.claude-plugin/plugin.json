@@ -1,6 +1,6 @@
 {
   "name": "subagent-metrics",
   "description": "Logs token usage for every subagent (Task tool) call to ~/.claude/subagent-metrics.jsonl",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "license": "MIT"
 }
