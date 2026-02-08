@@ -72,6 +72,30 @@
         "skill",
         "subagent"
       ]
+    },
+    {
+      "name": "plan-guard",
+      "description": "Asks for confirmation when entering plan mode with a non-Opus model",
+      "version": "0.1.0",
+      "source": "./plan-guard",
+      "category": "safety",
+      "license": "MIT"
+    },
+    {
+      "name": "worktree",
+      "source": "./worktree",
+      "description": "Manage git worktrees using git gtr (create, copy files, navigate)",
+      "version": "0.1.0",
+      "license": "MIT",
+      "keywords": [
+        "git",
+        "worktree",
+        "gtr"
+      ],
+      "category": "workflow",
+      "tags": [
+        "skill"
+      ]
     }
   ]
 }
