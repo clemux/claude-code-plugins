@@ -104,6 +104,24 @@ Runs pytest with coverage and baseline tracking via the `/tests` command.
 
 [Read more →](test-runner/README.md)
 
+### worktree
+
+Manages git worktrees using [git gtr](https://github.com/coderabbitai/git-worktree-runner) via the `/worktree` command.
+
+**Features:**
+- Create worktrees from any branch, tag, or the current branch
+- Copy files (e.g. `.env*`) to worktrees with dry-run preview
+- List, remove, and navigate worktrees
+- Navigation guidance (terminal, editor, AI session)
+
+**Usage:** `/worktree my-feature`, `/worktree copy my-feature -- ".env*"`, `/worktree list`, `/worktree rm my-feature`
+
+**How it works:** A skill that parses free-form input into intents (create, copy, list, remove, navigate) and runs the corresponding `git gtr` subcommands. Includes safety checks like dry-run previews before copies and confirmation before removal.
+
+**Dependencies:** [git gtr](https://github.com/coderabbitai/git-worktree-runner)
+
+[Read more →](worktree/README.md)
+
 ## Marketplace CLI
 
 The `scripts/marketplace.py` script provides a CLI for managing the plugin catalog. It runs as a standalone [uv script](https://docs.astral.sh/uv/guides/scripts/) (no install needed).
