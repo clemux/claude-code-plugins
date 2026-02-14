@@ -16,17 +16,17 @@ A collection of community plugins for [Claude Code](https://claude.ai/code) that
 ### Add this marketplace
 
 ```bash
-/plugin marketplace add clemux/clemux-claude-clode-plugins
+/plugin marketplace add clemux/claude-code-plugins
 ```
 
 ### Install plugins
 
 ```bash
 # Install the safer-git plugin
-/plugin install safer-git@cc-plugins
+/plugin install safer-git@clemux-claude-code-plugins
 
 # Install the subagent-metrics plugin
-/plugin install subagent-metrics@cc-plugins
+/plugin install subagent-metrics@clemux-claude-code-plugins
 ```
 
 ## Available Plugins
