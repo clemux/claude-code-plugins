@@ -27,6 +27,15 @@ A collection of community plugins for [Claude Code](https://claude.ai/code) that
 
 # Install the subagent-metrics plugin
 /plugin install subagent-metrics@clemux-claude-code-plugins
+
+# Install the commit plugin
+/plugin install commit@clemux-claude-code-plugins
+
+# Install the test-runner plugin
+/plugin install test-runner@clemux-claude-code-plugins
+
+# Install the worktree plugin
+/plugin install worktree@clemux-claude-code-plugins
 ```
 
 ## Available Plugins
