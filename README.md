@@ -16,7 +16,7 @@ A collection of community plugins for [Claude Code](https://claude.ai/code) that
 ### Add this marketplace
 
 ```bash
-/plugin marketplace add <github-owner>/cc-plugins
+/plugin marketplace add clemux/clemux-claude-clode-plugins
 ```
 
 ### Install plugins
