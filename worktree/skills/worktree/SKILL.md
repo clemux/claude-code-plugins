@@ -26,14 +26,14 @@ Do NOT proceed with any worktree operations until `git gtr` is available.
 
 Interpret the user's free-form input after `/worktree` and map it to one of these intents:
 
-| User says | Intent |
-|---|---|
-| `/worktree my-feature` | **create** a worktree for branch `my-feature` |
-| `/worktree new my-feature --from-current` | **create** with options |
-| `/worktree copy my-feature -- ".env*"` | **copy** files to a worktree |
-| `/worktree list` or `/worktree ls` | **list** worktrees |
-| `/worktree rm my-feature` or `/worktree remove my-feature` | **remove** a worktree |
-| `/worktree go my-feature` or `/worktree navigate my-feature` | **navigate** guidance |
+| User says                                                    | Intent                                        |
+|--------------------------------------------------------------|-----------------------------------------------|
+| `/worktree my-feature`                                       | **create** a worktree for branch `my-feature` |
+| `/worktree new my-feature --from-current`                    | **create** with options                       |
+| `/worktree copy my-feature -- ".env*"`                       | **copy** files to a worktree                  |
+| `/worktree list` or `/worktree ls`                           | **list** worktrees                            |
+| `/worktree rm my-feature` or `/worktree remove my-feature`   | **remove** a worktree                         |
+| `/worktree go my-feature` or `/worktree navigate my-feature` | **navigate** guidance                         |
 
 If the intent is ambiguous, ask the user to clarify.
 
