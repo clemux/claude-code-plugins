@@ -1,0 +1,6 @@
+{
+  "name": "pytest-profiling",
+  "description": "Diagnose slow pytest suites, profile with pyinstrument, apply targeted fixes, and produce a performance report",
+  "version": "0.1.0",
+  "license": "MIT"
+}
