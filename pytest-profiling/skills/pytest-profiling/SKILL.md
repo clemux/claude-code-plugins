@@ -57,7 +57,7 @@ This shows the full fixture dependency chain. Look for:
 ### Step 3 — CPU profiling with pyinstrument
 
 ```bash
-uv run pyinstrument -r text -m pytest <test_dir> -k "name_of_slow_test" -q
+${CLAUDE_PLUGIN_ROOT}/scripts/profile-test.sh <test_dir> -k "name_of_slow_test"
 ```
 
 The call tree shows exactly where CPU time is spent. Repeat for 2-3 of the slowest tests to find common patterns.
@@ -73,22 +73,30 @@ The call tree shows exactly where CPU time is spent. Repeat for 2-3 of the slowe
 
 ### Step 4 — Micro-benchmarks (optional)
 
-If a specific operation is suspect, isolate and measure it:
+Only use micro-benchmarks when you need to compare specific alternatives (e.g., TRUNCATE vs DELETE, file-based vs `:memory:` SQLite). pyinstrument usually provides enough data — skip this step unless a targeted comparison is needed.
 
-```bash
-uv run python -c "
+If a specific operation is suspect, isolate and measure it by writing a temporary benchmark script:
+
+1. Use the **Write** tool to create a benchmark script (e.g., `/tmp/bench_<name>.py`):
+```python
 import time
+
 # ... setup code ...
+
 times = []
 for i in range(10):
     start = time.time()
     # ... the suspect operation ...
     times.append(time.time() - start)
-print(f'avg: {sum(times)/len(times)*1000:.1f}ms')
-"
+print(f"avg: {sum(times)/len(times)*1000:.1f}ms")
 ```
 
-This is useful for comparing alternatives (e.g., TRUNCATE vs DELETE, bcrypt rounds 12 vs 4).
+2. Run it:
+```bash
+uv run python /tmp/bench_<name>.py
+```
+
+Writing a file (via the Write tool) avoids the permission overhead of inline `python -c` and makes the benchmark inspectable.
 
 ## Phase 2: Analyze
 
