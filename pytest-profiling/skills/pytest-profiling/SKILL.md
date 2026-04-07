@@ -107,6 +107,34 @@ Summarize findings before touching any code:
 3. **Is there a common bottleneck?** — One or two things that dominate across all tests
 4. **Estimate total impact** — `(per-call cost) × (number of calls) = total savings`
 
+## Phase 2.5: Test Hygiene
+
+Before optimizing slow tests for speed, check whether each slow test is worth keeping. Eliminating or consolidating redundant tests is the cheapest optimization — it removes setup cost entirely.
+
+### Consolidation patterns
+
+Look for these in the `--durations` output and the test source:
+
+1. **Same setup, different assertions** — Multiple tests that call the same endpoint / function with the same inputs, each checking one HTML element, one field, or one side-effect. Consolidate into a single test. The assertions are independent reads of the same result — splitting them across tests only multiplies fixture setup cost.
+
+2. **One atomic function, many tests** — A function that does steps A→B→C→D in sequence, with separate tests for each step's output. If the function is atomic (all-or-nothing), one comprehensive test covers the same contract. If any assertion fails, pytest shows the exact failing line — diagnosability is preserved.
+
+3. **Identical fixture, different input values** — Tests that differ only by input parameters should use `pytest.mark.parametrize` instead of separate functions.
+
+### How to evaluate
+
+For each group of slow tests sharing the same setup:
+- Read the function/endpoint under test
+- List what each test asserts
+- Ask: "Do these test distinct behavioral contracts, or different observations of the same behavior?"
+- If the latter → consolidate, then measure
+
+### What NOT to consolidate
+
+- Tests with different setup (different fixture state, different preconditions)
+- Tests that exercise genuinely different code paths (error vs success, different inputs triggering different branches)
+- Tests where one failure would mask another (e.g., test A mutates state that test B depends on)
+
 ## Phase 3: Optimize
 
 Design targeted fixes based on the profiling data. Apply one fix at a time and measure after each.
@@ -135,6 +163,14 @@ If a fixture is pure setup with no per-test state, consider widening its scope:
 - `scope="session"` — shared across the entire run
 
 Only do this if tests don't mutate the fixture's state.
+
+#### Expensive app/framework setup per test
+Web framework test clients (FastAPI `TestClient`, Django `Client`, Flask `test_client`) often recreate the app per test. If the app object is stateless and test isolation comes from swapping the backing service/session/DB, split the fixture:
+
+1. **Module-scoped** fixture creates the app once (route registration, middleware, etc.)
+2. **Function-scoped** fixture injects a fresh service/session/DB into the app and resets mutable state (settings files, caches)
+
+This pattern works when the app captures dependencies by reference (e.g., a session holder that can be swapped). It does NOT work when dependency state is copied at app creation time.
 
 #### Slow RSA key generation
 Cache a test keypair as a session-scoped fixture instead of generating per-test.
